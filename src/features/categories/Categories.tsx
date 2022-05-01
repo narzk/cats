@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import CategoryNav from "../../components/category/categoryForDesktop/CategoryNav";
 import CategorySideBar from "../../components/category/categoryForMobile/CategorySideBar";
@@ -17,9 +17,10 @@ const Categories = ({ handleCategoryNumber }: Icategory) => {
   const loading = useAppSelector(selectStatus);
   const ref = useRef(false);
 
-  const handleOpenClose = () => {
-    setOpenMenu(!openMenu);
-  };
+  const handleOpenClose = useCallback(() => {
+    return setOpenMenu(!openMenu);
+  }
+, [openMenu])
 
   useEffect(() => {
     if (!ref.current) {
